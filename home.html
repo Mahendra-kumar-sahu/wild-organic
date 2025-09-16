@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wild Organic</title>
+  <meta name="description" content="Discover premium quality millets, traditional rice, and organic spices from Millet Grains. Healthy, nutritious, and delivered to your doorstep.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    :root{
+      --primary:#8BC34A;--primary-dark:#689F38;--secondary:#FFA000;
+      --accent:#795548;--light:#F9F9F9;--dark:#333;--gray:#757575;
+      --light-gray:#E0E0E0;--white:#fff;--shadow:0 8px 24px rgba(0,0,0,.08);
+      --transition:all .3s ease
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell;
+      color:var(--dark);line-height:1.6;background:var(--white);overflow-x:hidden
+    }
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit;transition:var(--transition)}
+    a:hover{color:var(--primary)}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px}
+    .btn{display:inline-block;padding:12px 28px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;transition:var(--transition)}
+    .btn:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:var(--shadow)}
+    .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary)}
+    .btn-outline:hover{background:var(--primary);color:#fff}
+    .section{padding:88px 0}
+    .section-title{text-align:center;margin-bottom:48px}
+    .section-title h2{
+      font-family:"Playfair Display",serif;font-weight:700;font-size:2.6rem;
+      display:inline-block;position:relative;padding-bottom:14px
+    }
+    .section-title h2:after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:90px;height:3px;background:var(--primary)}
+    .muted{color:var(--gray)}
+
+    /* Top bar */
+    .top-bar{background:var(--primary);color:#fff;font-size:.95rem}
+    .top-bar .wrap{display:flex;justify-content:space-between;gap:12px;padding:8px 0;align-items:center}
+    .top-bar a{color:#fff;opacity:.95}
+    .top-bar a i{margin-right:8px}
+    .social a{margin-left:10px;display:inline-flex;width:32px;height:32px;border-radius:50%;align-items:center;justify-content:center;background:rgba(255,255,255,.18)}
+    .social a:hover{background:#fff;color:var(--primary)}
+
+    /* Header */
+    .header{position:sticky;top:0;background:#fff;box-shadow:var(--shadow);z-index:1000}
+    .header .row{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo img{height:58px}
+    .nav{display:flex;align-items:center;gap:24px}
+    .nav ul{display:flex;align-items:center;gap:22px}
+    .nav a{font-weight:600;position:relative;padding:8px 0}
+    .nav a:after{content:"";position:absolute;bottom:-6px;left:0;width:0;height:2px;background:var(--primary);transition:var(--transition)}
+    .nav a:hover:after{width:100%}
+    .dropdown{position:relative}
+    .dropdown-menu{
+      position:absolute;left:0;top:120%;min-width:220px;background:#fff;border-radius:10px;
+      box-shadow:var(--shadow);padding:10px 8px;opacity:0;visibility:hidden;transform:translateY(8px);transition:var(--transition)
+    }
+    .dropdown:hover .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+    .dropdown-menu a{display:block;padding:10px 14px;border-radius:8px}
+    .dropdown-menu a:hover{background:rgba(139,195,74,.12);color:var(--primary)}
+    .actions{display:flex;align-items:center;gap:16px}
+    .icon-btn{font-size:1.15rem;cursor:pointer;position:relative}
+    .cart-count{
+      position:absolute;top:-6px;right:-10px;background:var(--secondary);color:#fff;
+      width:18px;height:18px;border-radius:50%;font-size:.7rem;display:flex;align-items:center;justify-content:center
+    }
+    .mobile-toggle{display:none;font-size:1.4rem;cursor:pointer}
+
+    /* Mobile menu */
+    @media (max-width: 992px){
+      .mobile-toggle{display:block}
+      .nav{
+        position:fixed;right:-320px;top:0;height:100vh;width:300px;background:#fff;
+        box-shadow: -8px 0 32px rgba(0,0,0,.12);padding:90px 20px 24px;flex-direction:column;align-items:flex-start;gap:18px;transition:var(--transition);z-index:1001
+      }
+      .nav.active{right:0}
+      .nav ul{flex-direction:column;gap:12px;width:100%}
+      .dropdown-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;padding-left:12px}
+    }
+
+    /* Hero slider */
+    .hero{position:relative;overflow:hidden;height:620px}
+    .slide{
+      position:absolute;inset:0;background-size:cover;background-position:center;
+      opacity:0;transition:opacity 1s ease
+    }
+    .slide.active{opacity:1}
+    .slide .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.45))}
+    .slide .content{
+      position:relative;z-index:2;display:flex;height:100%;align-items:center
+    }
+    .slide-inner{max-width:650px;color:#fff;padding:0 16px}
+    .slide-inner h1{font-family:"Playfair Display",serif;font-size:3.4rem;margin-bottom:14px;line-height:1.1}
+    .slide-inner p{font-size:1.1rem;margin-bottom:24px;opacity:.95}
+    .slider-dots{position:absolute;left:50%;transform:translateX(-50%);bottom:22px;display:flex;gap:10px;z-index:5}
+    .dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.55);cursor:pointer;transition:var(--transition)}
+    .dot.active{background:#fff;transform:scale(1.15)}
+    .slider-arrows{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 8px;pointer-events:none}
+    .arrow{pointer-events:auto;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);color:#fff;font-size:1.2rem;cursor:pointer}
+    .arrow:hover{background:rgba(255,255,255,.35)}
+
+    /* Services */
+    .services{background:var(--light)}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+    .service-card{background:#fff;border-radius:14px;padding:26px;text-align:center;box-shadow:var(--shadow);transition:var(--transition)}
+    .service-card:hover{transform:translateY(-6px)}
+    .service-icon{font-size:2rem;color:var(--primary);margin-bottom:12px}
+
+    /* About */
+    .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+    .about-image{border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+    .about-image img{width:100%;height:100%;object-fit:cover}
+    .about-text h3{margin:10px 0 16px}
+    .about-bullets{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+    .about-bullets li{display:flex;gap:10px;align-items:flex-start}
+    .about-bullets i{color:var(--primary);margin-top:4px}
+
+    /* Categories */
+    .categories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+    .category-card{position:relative;height:300px;border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+    .category-card img{position:absolute;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .category-card:hover img{transform:scale(1.06)}
+    .category-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 20%,rgba(0,0,0,.65));display:flex;align-items:flex-end;padding:20px}
+    .category-content{color:#fff}
+    .category-content h3{font-size:1.6rem;margin-bottom:8px}
+    .category-content .btn{padding:8px 16px}
+
+    /* Products */
+    .products{background:var(--light)}
+    .filters{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+    .filter-btn{padding:10px 18px;border:none;border-radius:999px;background:#fff;color:var(--gray);font-weight:600;box-shadow:var(--shadow);cursor:pointer;transition:var(--transition)}
+    .filter-btn.active,.filter-btn:hover{color:#fff;background:var(--primary)}
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+    .product-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);display:flex;flex-direction:column}
+    .product-card:hover{transform:translateY(-6px)}
+    .product-card img{height:210px;width:100%;object-fit:cover}
+    .product-content{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px}
+    .product-title{font-weight:700}
+    .product-category{font-size:.9rem;color:var(--gray)}
+    .product-foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+    .price{color:var(--primary);font-weight:700}
+
+    /* Testimonials */
+    .testimonials{background:#fff}
+    .t-wrap{position:relative;overflow:hidden}
+    .t-track{display:flex;gap:22px;transition:transform .6s ease}
+    .t-card{min-width:320px;max-width:360px;background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:22px}
+    .t-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+    .t-head img{width:46px;height:46px;border-radius:50%;object-fit:cover}
+    .stars{color:#FFC107}
+    .t-arrows{display:flex;gap:8px;justify-content:center;margin-top:16px}
+    .t-arrow{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--light-gray);cursor:pointer}
+    .t-arrow:hover{background:var(--primary);color:#fff}
+
+    /* Newsletter */
+    .newsletter{background:var(--primary);color:#fff;text-align:center;padding:80px 0}
+    .newsletter p{opacity:.95;max-width:620px;margin:8px auto 20px}
+    .news-form{display:flex;gap:0;max-width:520px;margin:0 auto}
+    .news-form input{flex:1;padding:14px 16px;border:none;border-radius:10px 0 0 10px;font:inherit}
+    .news-form button{border-radius:0 10px 10px 0;background:var(--secondary)}
+    .news-form button:hover{background:#F57C00}
+
+    /* Footer */
+    .footer{background:#2C3E50;color:#fff;padding:80px 0 0}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:32px;margin-bottom:44px}
+    .footer h4{position:relative;margin-bottom:18px}
+    .footer h4:after{content:"";position:absolute;left:0;bottom:-8px;width:44px;height:2px;background:var(--primary)}
+    .footer-links li{margin:10px 0}
+    .footer-links a:hover{padding-left:6px;color:var(--primary)}
+    .footer .social a{background:rgba(255,255,255,.14)}
+    .footer .social a:hover{background:#fff;color:var(--primary)}
+    .contact li{display:flex;gap:10px;margin:10px 0}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.12);text-align:center;padding:18px 0;margin-top:6px;font-size:.95rem}
+
+    /* Responsiveness */
+    @media (max-width: 992px){
+      .section{padding:72px 0}
+      .about-grid{grid-template-columns:1fr;gap:28px}
+      .hero{height:520px}
+      .slide-inner h1{font-size:2.6rem}
+    }
+    @media (max-width: 576px){
+      .section{padding:64px 0}
+      .hero{height:440px}
+      .slide-inner h1{font-size:2rem}
+      .news-form{flex-direction:column}
+      .news-form input{border-radius:10px;margin-bottom:10px}
+      .news-form button{border-radius:10px}
+    }
+  </style>
+</head>
+<body>
+
+ 
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="row">
+        <a class="logo" href="#"><img src="logo.jpg" alt="Millet Grains"></a>
+
+        <nav class="nav" id="nav">
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li class="dropdown">
+              <a href="#" aria-haspopup="true" aria-expanded="false">Products <i class="fa-solid fa-chevron-down" style="font-size:.8rem;margin-left:6px"></i></a>
+              <div class="dropdown-menu" role="menu">
+                <a href="#products" role="menuitem" data-filter="millets" class="filter-link">Millets</a>
+                <a href="#products" role="menuitem" data-filter="rice" class="filter-link">Traditional Rice</a>
+                <a href="#products" role="menuitem" data-filter="spices" class="filter-link">Traditonal Flour</a>
+                  <a href="#products" role="menuitem" data-filter="seeds" class="filter-link">Seeds</a>
+              </div>
+            </li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="actions">
+          <span class="icon-btn" title="Search"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <span class="icon-btn" title="Account"><i class="fa-regular fa-user"></i></span>
+          <span class="icon-btn" id="cartBtn" title="Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count" id="cartCount">3</span>
+          </span>
+          <span class="mobile-toggle" id="mobileToggle" aria-label="Open menu"><i class="fa-solid fa-bars"></i></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Slider -->
+  <section class="hero" id="home">
+    <!-- Slide 1 -->
+    <div class="slide active" data-index="0" style="background-image:url('https://www.milletgrains.com/parambariya-arisi-online/1686130654.jpg')">
+      <span class="overlay"></span>
+      <div class="container content">
+        <div class="slide-inner">
+          <h1>Premium Quality Millets & Traditional Rice</h1>
+          <p>Discover the goodness of organic, nutrient-rich millets and traditional rice varieties for a healthier lifestyle.</p>
+          <a href="#products" class="btn">Shop Now</a>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="slide" data-index="1" style="background-image:url('https://www.milletgrains.com/parambariya-arisi-online/1686130743.jpg')">
+      <span class="overlay"></span>
+      <div class="container content">
+        <div class="slide-inner">
+          <h1>100% Organic Spices & Products</h1>
+          <p>Enhance your meals with pure, aromatic spices straight from nature's bounty.</p>
+          <a href="#products" class="btn btn-outline">Explore Products</a>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="slide" data-index="2" style="background-image:url('https://www.milletgrains.com/parambariya-arisi-online/1686130858.jpg')">
+      <span class="overlay"></span>
+      <div class="container content">
+        <div class="slide-inner">
+          <h1>Farm-Fresh Products, Delivered</h1>
+          <p>Experience the convenience of getting farm-fresh, organic products delivered right to your home.</p>
+          <a href="#about" class="btn">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrows -->
+    <div class="slider-arrows">
+      <button class="arrow" id="prevSlide" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="arrow" id="nextSlide" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <!-- Dots -->
+    <div class="slider-dots" id="sliderDots" aria-label="Slider pagination"></div>
+  </section>
+
+  <!-- Services -->
+  <section class="services section">
+    <div class="container">
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-truck"></i></div>
+          <h3>Quick Delivery</h3>
+          <p class="muted">Fast & reliable delivery across the region</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-badge-dollar"></i></div>
+          <h3>Value For Money</h3>
+          <p class="muted">Premium quality at competitive prices</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-headset"></i></div>
+          <h3>24/7 Support</h3>
+          <p class="muted">We’re here for you anytime</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+          <h3>Easy Purchase</h3>
+          <p class="muted">Simple & hassle-free shopping</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <img src="https://www.milletgrains.com/images/Intro.jpg" alt="About Millet Grains">
+        </div>
+        <div class="about-text">
+          <h2 class="section-title"><span>Welcome To Wild Organic</span></h2>
+          <h3>Pure. Traditional. Healthy.</h3>
+          <p>We are a team dedicated to total quality, great service, and continuous improvement. As one of the top producers and exporters of pure millets, traditional rice, and organic spices, we take pride in offering the best nature has to offer.</p>
+          <ul class="about-bullets">
+            <li><i class="fa-solid fa-check"></i> Handpicked, high-purity grains</li>
+            <li><i class="fa-solid fa-check"></i> Traditional processing methods</li>
+            <li><i class="fa-solid fa-check"></i> No artificial colors or preservatives</li>
+            <li><i class="fa-solid fa-check"></i> Sustainably sourced from farmers</li>
+          </ul>
+          <div style="margin-top:16px">
+            <a href="#products" class="btn">Browse Products</a>
+            <a href="#contact" class="btn btn-outline" style="margin-left:10px">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Categories</h2>
+        <p class="muted">Explore our wide range of organic and healthy products</p>
+      </div>
+      <div class="categories-grid">
+        <article class="category-card">
+          <img src="https://www.milletgrains.com/parambariya-arisi-online/1686131518.jpg" alt="Millets">
+          <div class="category-overlay">
+            <div class="category-content">
+              <h3>Millets</h3>
+              <a href="#products" class="btn btn-outline" data-filter="millets">Explore</a>
+            </div>
+          </div>
+        </article>
+          <article class="category-card">
+          <img src="image1.jpg" alt="Spices">
+          <div class="category-overlay">
+            <div class="category-content">
+              <h3>Traditional Rice</h3>
+              <a href="#products" class="btn btn-outline" data-filter="spices">Explore</a>
+            </div>
+          </div>
+        </article>
+        <article class="category-card">
+          <img src="image2.jpg" alt="flour">
+          <div class="category-overlay">
+            <div class="category-content">
+              <h3>Traditional flour</h3>
+              <a href="#products" class="btn btn-outline" data-filter="spices">Explore</a>
+            </div>
+          </div>
+        </article>
+           <article class="category-card">
+          <img src="seed.jpg" alt="Spices">
+          <div class="category-overlay">
+            <div class="category-content">
+              <h3>Seeds</h3>
+              <a href="#products" class="btn btn-outline" data-filter="spices">Explore</a>
+            </div>
+          </div>
+        </article>
+       
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products section" id="products">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Products</h2>
+        <p class="muted">Discover our premium selection of healthy foods</p>
+      </div>
+
+      <div class="filters" aria-label="Product filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="millets">Millets</button>
+        <button class="filter-btn" data-filter="rice">Traditional Rice</button>
+        <button class="filter-btn" data-filter="spices">Traditional Flour</button>
+        <button class="filter-btn" data-filter="seeds">Seeds</button>
+      </div>
+
+      <div class="products-grid" id="productGrid">
+        <!-- Millet -->
+        <div class="product-card" data-category="millets">
+          <img src="https://www.milletgrains.com/parambariya-arisi-online/1686131518.jpg" alt="Foxtail Millet">
+          <div class="product-content">
+            <span class="product-category">Millets</span>
+            <h3 class="product-title">Foxtail Millet</h3>
+            <p class="muted">High fiber, nutritious & gluten-free</p>
+            <div class="product-foot">
+              <span class="price">₹120 / kg</span>
+              <button class="btn add-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="millets">
+          <img src="https://www.milletgrains.com/parambariya-arisi-online/1686131828.jpg" alt="Varagu (Kodo) Millet">
+          <div class="product-content">
+            <span class="product-category">Millets</span>
+            <h3 class="product-title">Varagu (Kodo) Millet</h3>
+            <p class="muted">Mineral-rich, perfect for everyday meals</p>
+            <div class="product-foot">
+              <span class="price">₹130 / kg</span>
+              <button class="btn add-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rice -->
+        <div class="product-card" data-category="rice">
+          <img src="https://www.milletgrains.com/parambariya-arisi-online/1686145193.jpg" alt="Bamboo Rice">
+          <div class="product-content">
+            <span class="product-category">Traditional Rice</span>
+            <h3 class="product-title">Bamboo Rice</h3>
+            <p class="muted">Aromatic, unique flavor & texture</p>
+            <div class="product-foot">
+              <span class="price">₹250 / kg</span>
+              <button class="btn add-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="rice">
+          <img src="https://www.milletgrains.com/parambariya-arisi-online/1686148048.jpg" alt="Mappillai Samba">
+          <div class="product-content">
+            <span class="product-category">Traditional Rice</span>
+            <h3 class="product-title">Mappillai Samba</h3>
+            <p class="muted">Traditional strength-boosting rice</p>
+            <div class="product-foot">
+              <span class="price">₹180 / kg</span>
+              <button class="btn add-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spices -->
+        <div class="product-card" data-category="spices">
+          <img src="https://www.milletgrains.com/parambariya-arisi-online/1686225237.jpg" alt="Cardamom">
+          <div class="product-content">
+            <span class="product-category">Spices</span>
+            <h3 class="product-title">Cardamom</h3>
+            <p class="muted">Premium aroma, rich flavor</p>
+            <div class="product-foot">
+              <span class="price">₹420 / 250g</span>
+              <button class="btn add-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-category="spices">
+          <img src="https://www.milletgrains.com/parambariya-arisi-online/1686225546.jpg" alt="Black Pepper">
+          <div class="product-content">
+            <span class="product-category">Spices</span>
+            <h3 class="product-title">Black Pepper</h3>
+            <p class="muted">Sun-dried, bold & peppery</p>
+            <div class="product-foot">
+              <span class="price">₹380 / 500g</span>
+              <button class="btn add-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials section">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Our Customers Say</h2>
+        <p class="muted">Trusted by health-conscious families across India</p>
+      </div>
+      <div class="t-wrap">
+        <div class="t-track" id="tTrack">
+          <div class="t-card">
+            <div class="t-head">
+              <img src="https://i.pravatar.cc/100?img=32" alt="Customer">
+              <div>
+                <strong>Priya Sharma</strong><br>
+                <span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></span>
+              </div>
+            </div>
+            <p>Millet Grains ke millets bohot fresh aur clean milte hain. Packaging aur delivery bhi fast thi. Highly recommended!</p>
+          </div>
+          <div class="t-card">
+            <div class="t-head">
+              <img src="https://i.pravatar.cc/100?img=15" alt="Customer">
+              <div>
+                <strong>Rahul Verma</strong><br>
+                <span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+              </div>
+            </div>
+            <p>Traditional rice varieties ka taste amazing hai. Mappillai Samba ko try kiya—bahut accha laga!</p>
+          </div>
+          <div class="t-card">
+            <div class="t-head">
+              <img src="https://i.pravatar.cc/100?img=5" alt="Customer">
+              <div>
+                <strong>Ananya Iyer</strong><br>
+                <span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></span>
+              </div>
+            </div>
+            <p>Spices ki aroma itni natural hai ki khana ka flavor level up ho jata hai. Great quality!</p>
+          </div>
+          <div class="t-card">
+            <div class="t-head">
+              <img src="https://i.pravatar.cc/100?img=8" alt="Customer">
+              <div>
+                <strong>Vikram Joshi</strong><br>
+                <span class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i></span>
+              </div>
+            </div>
+            <p>Fast delivery aur neat packaging—healthy eating ke liye perfect one-stop store.</p>
+          </div>
+        </div>
+      </div>
+      <div class="t-arrows">
+        <button class="t-arrow" id="tPrev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="t-arrow" id="tNext"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+ 
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img src="logo.jpg" alt="Millet Grains" style="height:58px;margin-bottom:14px">
+          <p>We deliver premium millets, traditional rice, and organic spices—sourced responsibly and processed with care.</p>
+          <div class="social" style="margin-top:12px">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/_dau_ji__?igsh=dzV3eW91NGZpbXFo" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="+91 83192 44128" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Our Products</h4>
+          <ul class="footer-links">
+            <li><a href="#products" class="filter-link" data-filter="millets">Millets</a></li>
+            <li><a href="#products" class="filter-link" data-filter="rice">Traditional Rice</a></li>
+            <li><a href="#products" class="filter-link" data-filter="spices">Traditional flour</a></li>
+            <li><a href="#products">Seeds</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Contact Us</h4>
+          <ul class="contact">
+            <li><i class="fa-solid fa-location-dot"></i> Betar , Bemetara , Chhattisgarh, India</li>
+            <li><i class="fa-solid fa-phone"></i> +91 83192 44128</li>
+            <li><i class="fa-solid fa-envelope"></i> patelform@gmail.com</li>
+            <li><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © <span id="year"></span> Patel Form. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth',block:'start'});
+          // close mobile nav if open
+          nav.classList.remove('active');
+        }
+      })
+    });
+
+    // Mobile Menu
+    const mobileToggle = document.getElementById('mobileToggle');
+    const nav = document.getElementById('nav');
+    mobileToggle.addEventListener('click',()=>nav.classList.toggle('active'));
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') nav.classList.remove('active'); });
+
+    // Hero Slider
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dotsWrap = document.getElementById('sliderDots');
+    let current = 0, autoTimer, isHover = false;
+
+    function renderDots(){
+      dotsWrap.innerHTML = '';
+      slides.forEach((_,i)=>{
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i===0?' active':'');
+        dot.setAttribute('aria-label','Go to slide '+(i+1));
+        dot.addEventListener('click',()=>goTo(i,true));
+        dotsWrap.appendChild(dot);
+      });
+    }
+    function setActive(idx){
+      slides.forEach(s=>s.classList.remove('active'));
+      slides[idx].classList.add('active');
+      const dots = dotsWrap.querySelectorAll('.dot');
+      dots.forEach(d=>d.classList.remove('active'));
+      dots[idx]?.classList.add('active');
+    }
+    function goTo(idx,user=false){
+      current = (idx+slides.length) % slides.length;
+      setActive(current);
+      if(user){ restartAuto(); }
+    }
+    function next(){ goTo(current+1); }
+    function prev(){ goTo(current-1); }
+
+    function startAuto(){ autoTimer = setInterval(()=>{ if(!isHover) next(); }, 4500); }
+    function stopAuto(){ clearInterval(autoTimer); }
+    function restartAuto(){ stopAuto(); startAuto(); }
+
+    document.getElementById('nextSlide').addEventListener('click',()=>goTo(current+1,true));
+    document.getElementById('prevSlide').addEventListener('click',()=>goTo(current-1,true));
+
+    // Pause on hover
+    document.querySelector('.hero').addEventListener('mouseenter',()=>{ isHover = true; });
+    document.querySelector('.hero').addEventListener('mouseleave',()=>{ isHover = false; });
+
+    // Swipe support
+    (function(){
+      const el = document.querySelector('.hero');
+      let startX=null;
+      el.addEventListener('touchstart',e=>{ startX = e.touches[0].clientX; },{passive:true});
+      el.addEventListener('touchend',e=>{
+        if(startX===null) return;
+        const dx = e.changedTouches[0].clientX - startX;
+        if(Math.abs(dx) > 60){ dx<0 ? next() : prev(); }
+        startX=null;
+      });
+    })();
+
+    renderDots(); startAuto();
+
+    // Product Filters
+    const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+    const productCards = Array.from(document.querySelectorAll('.product-card'));
+    function applyFilter(filter){
+      productCards.forEach(card=>{
+        const show = filter==='all' || card.dataset.category===filter;
+        card.style.display = show ? 'flex' : 'none';
+      });
+      filterBtns.forEach(b=>b.classList.toggle('active', b.dataset.filter===filter));
+    }
+    filterBtns.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        applyFilter(btn.dataset.filter);
+      });
+    });
+    // Links that trigger filter (dropdown & category buttons)
+    document.querySelectorAll('.filter-link,[data-filter]').forEach(link=>{
+      link.addEventListener('click',(e)=>{
+        const f = link.dataset.filter;
+        if(f){
+          applyFilter(f);
+        }
+      });
+    });
+
+    // Add to Cart (demo)
+    const cartCount = document.getElementById('cartCount');
+    let cartNum = parseInt(cartCount.textContent,10) || 0;
+    document.querySelectorAll('.add-cart').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        cartNum += 1;
+        cartCount.textContent = cartNum;
+        btn.textContent = 'Added';
+        setTimeout(()=>btn.textContent='Add to Cart',1200);
+      });
+    });
+
+    // Accessibility: close nav when clicking outside on mobile
+    document.addEventListener('click',(e)=>{
+      const insideNav = nav.contains(e.target) || e.target === mobileToggle || mobileToggle.contains(e.target);
+      if(!insideNav) nav.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
